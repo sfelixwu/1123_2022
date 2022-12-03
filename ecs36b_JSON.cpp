@@ -28,40 +28,24 @@ int
 myParseJSON
 (std::string input, Json::Value * jv_ptr)
 {
-  std::cout << "Here 6.1.2.0\n";  
-  fflush(stdout);
-  
   if (jv_ptr == NULL) return -1;
-
-  std::cout << "Here 6.1.2.1\n";  
 
   Json::CharReaderBuilder builder;
   Json::CharReader* reader;
   std::string errors;
   bool parsingSuccessful;
 
-  std::cout << "Here 6.1.2.2\n";  
-
   reader = builder.newCharReader();
-
-  std::cout << "Here 6.1.2.3\n";  
-
   parsingSuccessful = reader->parse(input.c_str(),
 				    input.c_str() + input.size(),
 				    jv_ptr, &errors);
-  std::cout << "Here 6.1.2.4\n";  
-
   delete reader;
-
-  std::cout << "Here 6.1.2.5\n";  
 
   if (!parsingSuccessful) {
     std::cout << "Failed to parse the content of the first JSON, errors:" << std::endl;
     std::cout << errors << std::endl;
     return -2;
   }
-
-  std::cout << "Here 6.1.2.6\n";  
 
   return 0;
 }
@@ -102,21 +86,16 @@ myFile2JSON
 (char *f_name, Json::Value * jv_ptr)
 {
   int rc;
-  std::cout << "Here 6.1.1\n";  
-
   char *json_str = myFile2String(f_name);
-  std::cout << f_name << std::endl;
-  std::cout << ((void *) json_str) << std::endl;
-  std::cout << jv_ptr << std::endl;
-  std::cout << "Here 6.1.2\n";
-  if (json_str == NULL) rc = -1;
-  else
+  if (json_str != NULL)
     {
       rc = myParseJSON(json_str, jv_ptr);
-      std::cout << "Here 6.1.3\n";  
       free(json_str);
     }
-  std::cout << "Here 6.1.4\n";  
+  else
+    {
+      rc = -1;
+    }
   return rc;
 }
 
