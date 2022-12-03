@@ -224,6 +224,7 @@ Myhw6Server::set_name
   lv_log["arg action"] = action;
   lv_log["arg student_list"] = student_list;
   lv_log["arg team_name"] = team_name;
+  myPrintLog(lv_log.toStyledString(), "./config/hw6server.log");
   
   int i;
   int error_code = 0;
@@ -242,6 +243,12 @@ Myhw6Server::set_name
   Json::Value lv_students;
 
   try {
+    if (action != "set_name")
+      {
+	error_code = -9;
+	throw ecs36b_Exception { ("action " + action + " mismatched") };
+      }
+
     rc = myFile2JSON(buf_fname1, &lv_teams);
     if (rc != 0)
       {
@@ -250,7 +257,7 @@ Myhw6Server::set_name
 	  { ("myFile2JSON error " + std::string { buf_fname1 }) };
       }
 
-    if((lv_teams.isNull() == false) &&
+    if((lv_teams.isNull() == true) ||
        (lv_teams.isObject() == false))
       {
 	error_code = -1;
@@ -376,6 +383,7 @@ Myhw6Server::submit
   lv_log["arg action"] = action;
   lv_log["arg game_id"] = game_id;
   lv_log["arg team_name"] = team_name;
+  myPrintLog(lv_log.toStyledString(), "./config/hw6server.log");
   
   int i;
   int error_code = 0;
@@ -383,6 +391,12 @@ Myhw6Server::submit
   Json::Value result;
 
   try {
+    if (action != "submit")
+      {
+	error_code = -9;
+	throw ecs36b_Exception { ("action " + action + " mismatched") };
+      }
+
     if (game_id.empty())
       {
 	error_code = -2;
@@ -444,7 +458,7 @@ Myhw6Server::submit
 	  { ("myFile2JSON error " + std::string { buf_fname1 }) };
       }
 
-    if((lv_teams.isNull() == false) &&
+    if((lv_teams.isNull() == true) ||
        (lv_teams.isObject() == false))
       {
 	error_code = -1;
@@ -543,12 +557,19 @@ Myhw6Server::obtain
   lv_log["arg action"] = action;
   lv_log["arg class_id"] = class_id;
   lv_log["arg game_id"] = game_id;
+  myPrintLog(lv_log.toStyledString(), "./config/hw6server.log");
 
   int rc = 0;
   int error_code = 0;
   Json::Value result;
 
   try {
+    if (action != "obtain")
+      {
+	error_code = -9;
+	throw ecs36b_Exception { ("action " + action + " mismatched") };
+      }
+
     if (class_id != "Wordle")
       {
 	error_code = -1;
@@ -660,11 +681,19 @@ Myhw6Server::guess
   lv_log["arg game_id"] = game_id;
   lv_log["arg my_guess"] = my_guess;
   
+  myPrintLog(lv_log.toStyledString(), "./config/hw6server.log");
+
   int rc;
   int error_code = 0;
   Json::Value result;
 
   try {
+    if (action != "guess")
+      {
+	error_code = -9;
+	throw ecs36b_Exception { ("action " + action + " mismatched") };
+      }
+    
     if (class_id != "Wordle")
       {
 	error_code = -1;
