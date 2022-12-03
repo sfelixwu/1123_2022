@@ -16,7 +16,7 @@ INC_CL	=	JvTime.h
 OBJ	=	JvTime.o
 
 # rules.
-all: 	hw6server hw6client
+all: 	hw6server hw6client student_parse hw6scores
 
 #
 #
@@ -35,11 +35,23 @@ hw6client.o:		hw6client.cpp hw6client.h $(INC_CL) $(INC)
 hw6server.o:		hw6server.cpp hw6server.h $(INC_CL) $(INC)
 	$(CC) -c $(CFLAGS) hw6server.cpp
 
+hw6scores.o:		hw6scores.cpp $(INC_CL) $(INC)
+	$(CC) -c $(CFLAGS) hw6scores.cpp
+
+student_parse.o:	student_parse.cpp $(INC)
+	$(CC) -c $(CFLAGS) student_parse.cpp
+
 ecs36b_JSON.o:		ecs36b_JSON.cpp $(INC)
 	$(CC) -c $(CFLAGS) ecs36b_JSON.cpp
 
 JvTime.o:	JvTime.cpp JvTime.h $(INC)
 	$(CC) -c $(CFLAGS) JvTime.cpp
+
+student_parse:	student_parse.o ecs36b_JSON.o $(OBJ)
+	$(CC) -o student_parse student_parse.o ecs36b_JSON.o $(OBJ) $(LDFLAGS)
+
+hw6scores:	hw6scores.o ecs36b_JSON.o $(OBJ)
+	$(CC) -o hw6scores hw6scores.o ecs36b_JSON.o $(OBJ) $(LDFLAGS)
 
 hw6server:	hw6server.o ecs36b_JSON.o $(OBJ)
 	$(CC) -o hw6server hw6server.o ecs36b_JSON.o $(OBJ) $(LDFLAGS)
