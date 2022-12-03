@@ -9,9 +9,10 @@ This is the reference implementation for HW#6. Please see the ecs36b_hw6.json fo
 
 IMPORTANT:
 During our classes, we will use the following ngrok link --
-https://2ada-73-66-168-157.ngrok.io
+USE THIS ONE ==> https://fa470c1cc98f.ngrok.io
 
-https://5f43-2601-200-c001-9ff0-d5cd-ca2a-e2c4-2fcc.ngrok.io
+invalid => https://2ada-73-66-168-157.ngrok.io
+invalid => https://5f43-2601-200-c001-9ff0-d5cd-ca2a-e2c4-2fcc.ngrok.io
 
 I.e., in hw6client.cpp, you should have --
 HttpClient httpclient("https://5f43-2601-200-c001-9ff0-d5cd-ca2a-e2c4-2fcc.ngrok.io");
