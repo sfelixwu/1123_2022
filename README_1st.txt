@@ -12,6 +12,6 @@ During our classes, we will use the following ngrok link --
 https://76ab88348bda.ngrok.io
 
 I.e., in hw6client.cpp, you should have --
-HttpClient httpclient("https://5f43-2601-200-c001-9ff0-d5cd-ca2a-e2c4-2fcc.ngrok.io");
+HttpClient httpclient("https://76ab88348bda.ngrok.io");
 
 If you have any question about the examples, please feel free to ask the instructor.
