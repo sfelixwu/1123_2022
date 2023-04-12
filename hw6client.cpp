@@ -15,10 +15,10 @@ int
 main()
 {
   // distributed wordle demo for 11/23/2022
-  // HttpClient httpclient("http://127.0.0.1:8384");
+  HttpClient httpclient("http://127.0.0.1:8384");
   // HttpClient httpclient("https://5f43-2601-200-c001-9ff0-d5cd-ca2a-e2c4-2fcc.ngrok.io");
   // HttpClient httpclient("https://2ada-73-66-168-157.ngrok.io");
-  HttpClient httpclient("https://fa470c1cc98f.ngrok.io");
+  // HttpClient httpclient("https://fa470c1cc98f.ngrok.io");
   hw6Client myClient(httpclient, JSONRPC_CLIENT_V2);
   Json::Value myv;
   Json::Value jv_list;
@@ -37,22 +37,46 @@ main()
 
   try {
     // worry
-    myv = myClient.guess("guess", "Wordle", "81976_2022-11-28T23:53:50+0000",
-			 "shire");
+    myv = myClient.obtain("obtain", "Wordle", "00000000");
+  } catch (JsonRpcException &e) {
+    cerr << e.what() << endl;
+  }
+  std::cout << myv.toStyledString() << std::endl;
+
+  string new_game_id = (myv["game_id"]).asString();
+  try {
+    // mound
+    myv = myClient.guess("guess", "Wordle", new_game_id, "mound");
   } catch (JsonRpcException &e) {
     cerr << e.what() << endl;
   }
   std::cout << myv.toStyledString() << std::endl;
 
   try {
-   // worry
-    myv = myClient.submit("submit", "81976_2022-11-28T23:53:50+0000", "bar");
+    // sicky
+    myv = myClient.guess("guess", "Wordle", new_game_id, "sicky");
+  } catch (JsonRpcException &e) {
+    cerr << e.what() << endl;
+  }
+  std::cout << myv.toStyledString() << std::endl;
+
+  try {
+    // earth
+    myv = myClient.guess("guess", "Wordle", new_game_id, "earth");
   } catch (JsonRpcException &e) {
     cerr << e.what() << endl;
   }
   std::cout << myv.toStyledString() << std::endl;
 
   exit(-2);
+
+  try {
+   // worry
+    myv = myClient.submit("submit", new_game_id, "bar");
+  } catch (JsonRpcException &e) {
+    cerr << e.what() << endl;
+  }
+  std::cout << myv.toStyledString() << std::endl;
 
   exit(-1);
   
